@@ -1,7 +1,9 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import FilterChips from './FilterChips';
 import MediaCard from './MediaCard';
 import Lightbox from './Lightbox';
+import { FadeIn, StaggerContainer, StaggerItem } from './animations/MotionComponents';
 
 interface MediaItem {
   id: string;
@@ -143,6 +145,14 @@ const MediaMosaic = () => {
   const [activeFilter, setActiveFilter] = useState('All');
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentItemIndex, setCurrentItemIndex] = useState(0);
+  
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+  
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
 
   const filteredItems = useMemo(() => {
     if (activeFilter === 'All') return mediaItems;
@@ -171,40 +181,45 @@ const MediaMosaic = () => {
   };
 
   return (
-    <section id="mosaic" className="pt-24 pb-16 px-4">
-      <div className="container mx-auto">
+    <section id="mosaic" className="pt-24 pb-16 px-4 relative overflow-hidden" ref={sectionRef}>
+      {/* Animated background gradient */}
+      <motion.div 
+        className="absolute inset-0 opacity-30 pointer-events-none"
+        style={{
+          y: backgroundY,
+          background: 'radial-gradient(ellipse at 50% 0%, hsl(38 92% 50% / 0.15) 0%, transparent 60%)',
+        }}
+      />
+      
+      <div className="container mx-auto relative z-10">
         {/* Section header */}
-        <div className="text-center mb-12 animate-fade-in">
+        <FadeIn className="text-center mb-12">
           <h1 className="section-title">Building Communities, Changing Lives</h1>
           <p className="section-subtitle mx-auto mt-4">
             Witness the impact of our social welfare initiatives through the stories and moments we've captured.
           </p>
-        </div>
+        </FadeIn>
 
         {/* Filter chips */}
-        <div className="mb-10 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+        <FadeIn delay={0.2} className="mb-10">
           <FilterChips
             filters={filters}
             activeFilter={activeFilter}
             onFilterChange={setActiveFilter}
           />
-        </div>
+        </FadeIn>
 
-        {/* Masonry grid */}
-        <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
+        {/* Masonry grid with stagger animation */}
+        <StaggerContainer className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
           {filteredItems.map((item, index) => (
-            <div 
-              key={item.id} 
-              className="break-inside-avoid animate-fade-in"
-              style={{ animationDelay: `${0.1 * (index % 8)}s` }}
-            >
+            <StaggerItem key={item.id} className="break-inside-avoid">
               <MediaCard
                 {...item}
                 onClick={() => openLightbox(index)}
               />
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* Lightbox */}
         <Lightbox

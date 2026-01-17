@@ -1,6 +1,8 @@
-import { useState } from 'react';
-import { Play, Users, Trophy, Heart, ArrowRight } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Play, Users, Trophy, Heart } from 'lucide-react';
 import Lightbox from './Lightbox';
+import { FadeIn, StaggerContainer, StaggerItem } from './animations/MotionComponents';
 
 interface MediaItem {
   id: string;
@@ -79,6 +81,14 @@ const roster = [
 const ClubMedia = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+  
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
 
   const openLightbox = (index: number) => {
     setCurrentIndex(index);
@@ -86,93 +96,141 @@ const ClubMedia = () => {
   };
 
   return (
-    <section id="club" className="py-20 px-4 bg-card/50">
-      <div className="container mx-auto">
+    <section id="club" className="py-20 px-4 bg-card/50 relative overflow-hidden" ref={sectionRef}>
+      {/* Parallax background */}
+      <motion.div 
+        className="absolute inset-0 pointer-events-none"
+        style={{ y: backgroundY }}
+      >
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-primary/5 blur-3xl" />
+      </motion.div>
+      
+      <div className="container mx-auto relative z-10">
         {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+        <FadeIn className="text-center mb-12">
+          <motion.div 
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4"
+            whileHover={{ scale: 1.05 }}
+          >
             <Trophy className="w-4 h-4" />
             Global FC Youth Club
-          </div>
+          </motion.div>
           <h2 className="section-title">Building Champions On & Off the Field</h2>
           <p className="section-subtitle mx-auto mt-4">
             Our football program uses sport to teach discipline, teamwork, and leadership while providing opportunities for talented youth.
           </p>
-        </div>
+        </FadeIn>
 
         {/* Stats row */}
-        <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto mb-12">
+        <StaggerContainer className="grid grid-cols-3 gap-4 max-w-2xl mx-auto mb-12" staggerDelay={0.1}>
           {[
             { icon: <Users className="w-5 h-5" />, value: '800+', label: 'Young Athletes' },
             { icon: <Trophy className="w-5 h-5" />, value: '15', label: 'Championships' },
             { icon: <Heart className="w-5 h-5" />, value: '24', label: 'Partner Teams' },
           ].map((stat, index) => (
-            <div key={index} className="text-center p-4 rounded-xl bg-secondary/30">
-              <div className="inline-flex text-primary mb-2">{stat.icon}</div>
-              <div className="text-2xl font-bold text-foreground">{stat.value}</div>
-              <div className="text-sm text-muted-foreground">{stat.label}</div>
-            </div>
+            <StaggerItem key={index}>
+              <motion.div 
+                className="text-center p-4 rounded-xl bg-secondary/30"
+                whileHover={{ scale: 1.05, y: -3 }}
+              >
+                <motion.div 
+                  className="inline-flex text-primary mb-2"
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  {stat.icon}
+                </motion.div>
+                <div className="text-2xl font-bold text-foreground">{stat.value}</div>
+                <div className="text-sm text-muted-foreground">{stat.label}</div>
+              </motion.div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* Media gallery */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12">
+        <StaggerContainer className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12" staggerDelay={0.08}>
           {clubMedia.map((item, index) => (
-            <div
-              key={item.id}
-              className="relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer group animate-fade-in"
-              style={{ animationDelay: `${0.1 * index}s` }}
-              onClick={() => openLightbox(index)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => e.key === 'Enter' && openLightbox(index)}
-            >
-              <img
-                src={item.thumbnail}
-                alt={item.title}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                <div>
-                  <span className="text-xs text-primary font-medium uppercase">{item.category}</span>
-                  <h4 className="text-foreground font-semibold">{item.title}</h4>
-                </div>
-              </div>
-              {item.type === 'video' && (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="play-button-inner opacity-80 group-hover:opacity-100 transition-opacity">
-                    <Play className="w-6 h-6 text-primary-foreground ml-1" fill="currentColor" />
+            <StaggerItem key={item.id}>
+              <motion.div
+                className="relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer group"
+                onClick={() => openLightbox(index)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && openLightbox(index)}
+                whileHover={{ scale: 1.03 }}
+                transition={{ duration: 0.3 }}
+              >
+                <motion.img
+                  src={item.thumbnail}
+                  alt={item.title}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.5 }}
+                />
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent flex items-end p-4"
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div>
+                    <span className="text-xs text-primary font-medium uppercase">{item.category}</span>
+                    <h4 className="text-foreground font-semibold">{item.title}</h4>
                   </div>
-                </div>
-              )}
-            </div>
+                </motion.div>
+                {item.type === 'video' && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <motion.div 
+                      className="play-button-inner opacity-80 group-hover:opacity-100 transition-opacity"
+                      whileHover={{ scale: 1.2 }}
+                    >
+                      <Play className="w-6 h-6 text-primary-foreground ml-1" fill="currentColor" />
+                    </motion.div>
+                  </div>
+                )}
+              </motion.div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* Roster snippet */}
-        <div className="max-w-2xl mx-auto mb-12">
+        <FadeIn delay={0.3} className="max-w-2xl mx-auto mb-12">
           <h3 className="text-xl font-bold text-foreground text-center mb-6">Team Leadership</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-4" staggerDelay={0.1}>
             {roster.map((member, index) => (
-              <div key={index} className="text-center p-4 rounded-xl bg-card">
-                <div className="w-12 h-12 rounded-full bg-primary/20 mx-auto mb-3 flex items-center justify-center">
-                  <Users className="w-6 h-6 text-primary" />
-                </div>
-                <div className="font-semibold text-foreground text-sm">{member.name}</div>
-                <div className="text-xs text-muted-foreground">{member.role}</div>
-              </div>
+              <StaggerItem key={index}>
+                <motion.div 
+                  className="text-center p-4 rounded-xl bg-card"
+                  whileHover={{ y: -5, scale: 1.02 }}
+                >
+                  <motion.div 
+                    className="w-12 h-12 rounded-full bg-primary/20 mx-auto mb-3 flex items-center justify-center"
+                    whileHover={{ rotate: 10 }}
+                  >
+                    <Users className="w-6 h-6 text-primary" />
+                  </motion.div>
+                  <div className="font-semibold text-foreground text-sm">{member.name}</div>
+                  <div className="text-xs text-muted-foreground">{member.role}</div>
+                </motion.div>
+              </StaggerItem>
             ))}
-          </div>
-        </div>
+          </StaggerContainer>
+        </FadeIn>
 
         {/* CTA */}
-        <div className="text-center">
-          <a href="/contact" className="cta-button">
+        <FadeIn delay={0.4} className="text-center">
+          <motion.a 
+            href="/contact" 
+            className="cta-button inline-flex"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+          >
             <Heart className="w-5 h-5" />
             Support the Club
-          </a>
-        </div>
+          </motion.a>
+        </FadeIn>
 
         <Lightbox
           isOpen={lightboxOpen}
