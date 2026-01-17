@@ -1,12 +1,48 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import TopNav from '@/components/TopNav';
+import MediaMosaic from '@/components/MediaMosaic';
+import FeaturedCarousel from '@/components/FeaturedCarousel';
+import ProgramsSection from '@/components/ProgramsSection';
+import ImpactCounters from '@/components/ImpactCounters';
+import ClubMedia from '@/components/ClubMedia';
+import MediaGallery from '@/components/MediaGallery';
+import MissionStrip from '@/components/MissionStrip';
+import CTARow from '@/components/CTARow';
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      {/* SEO Meta - would be in document head in production */}
+      <title>Social Welfare | Global General Construction Company</title>
+      
+      {/* Navigation */}
+      <TopNav />
+      
+      {/* Main content - no hero, starts with media mosaic */}
+      <main>
+        {/* Lead Media Mosaic - immediate visual impact */}
+        <MediaMosaic />
+        
+        {/* Featured Stories Carousel */}
+        <FeaturedCarousel />
+        
+        {/* Programs Snapshot */}
+        <ProgramsSection />
+        
+        {/* Impact Counters */}
+        <ImpactCounters />
+        
+        {/* Football Club Section */}
+        <ClubMedia />
+        
+        {/* Full Media Gallery */}
+        <MediaGallery />
+        
+        {/* Mission / About Strip */}
+        <MissionStrip />
+        
+        {/* Call-to-Action Row */}
+        <CTARow />
+      </main>
     </div>
   );
 };
