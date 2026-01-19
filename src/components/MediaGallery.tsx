@@ -1,9 +1,7 @@
 import { useState, useMemo } from 'react';
-import { motion } from 'framer-motion';
-import { Play, Eye } from 'lucide-react';
+import { Play, Eye, Filter } from 'lucide-react';
 import FilterChips from './FilterChips';
 import Lightbox from './Lightbox';
-import { FadeIn, StaggerContainer, StaggerItem } from './animations/MotionComponents';
 
 interface MediaItem {
   id: string;
@@ -158,60 +156,45 @@ const MediaGallery = () => {
   };
 
   return (
-    <section id="gallery" className="py-20 px-4 overflow-hidden">
+    <section id="gallery" className="py-20 px-4">
       <div className="container mx-auto">
-        <FadeIn className="text-center mb-12">
+        <div className="text-center mb-12">
           <h2 className="section-title">Media Gallery</h2>
           <p className="section-subtitle mx-auto mt-4">
             Explore our complete collection of photos and videos documenting our community impact
           </p>
-        </FadeIn>
+        </div>
 
         {/* Filters */}
-        <FadeIn delay={0.2} className="mb-10">
+        <div className="mb-10">
           <FilterChips
             filters={filters}
             activeFilter={activeFilter}
             onFilterChange={setActiveFilter}
           />
-        </FadeIn>
+        </div>
 
         {/* Gallery grid */}
-        <motion.div 
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-          layout
-        >
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredItems.map((item, index) => (
-            <motion.div
+            <div
               key={item.id}
-              layout
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.4, delay: index * 0.03 }}
-              className="relative aspect-square rounded-xl overflow-hidden cursor-pointer group"
+              className="relative aspect-square rounded-xl overflow-hidden cursor-pointer group animate-fade-in"
+              style={{ animationDelay: `${0.05 * (index % 12)}s` }}
               onClick={() => openLightbox(index)}
               role="button"
               tabIndex={0}
               onKeyDown={(e) => e.key === 'Enter' && openLightbox(index)}
-              whileHover={{ scale: 1.03, zIndex: 10 }}
             >
-              <motion.img
+              <img
                 src={item.thumbnail}
                 alt={item.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 loading="lazy"
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.5 }}
               />
               
               {/* Hover overlay */}
-              <motion.div 
-                className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent flex flex-col justify-end p-4"
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-              >
+              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
                 <span className="text-xs text-primary font-medium uppercase tracking-wider mb-1">
                   {item.category}
                 </span>
@@ -229,7 +212,7 @@ const MediaGallery = () => {
                     </>
                   )}
                 </div>
-              </motion.div>
+              </div>
 
               {/* Video indicator */}
               {item.type === 'video' && (
@@ -241,33 +224,24 @@ const MediaGallery = () => {
 
               {/* Tags */}
               {item.tags && (
-                <motion.div 
-                  className="absolute top-3 left-3 flex flex-wrap gap-1"
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
+                <div className="absolute top-3 left-3 flex flex-wrap gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                   {item.tags.slice(0, 2).map((tag) => (
                     <span key={tag} className="px-2 py-0.5 rounded-full bg-primary/80 text-primary-foreground text-xs">
                       {tag}
                     </span>
                   ))}
-                </motion.div>
+                </div>
               )}
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
-        {/* Load more */}
-        <FadeIn delay={0.4} className="text-center mt-10">
-          <motion.button 
-            className="cta-button-outline"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-          >
+        {/* Load more (placeholder) */}
+        <div className="text-center mt-10">
+          <button className="cta-button-outline">
             Load More Media
-          </motion.button>
-        </FadeIn>
+          </button>
+        </div>
 
         <Lightbox
           isOpen={lightboxOpen}

@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import ProgramCard from './ProgramCard';
 import ProgramModal from './ProgramModal';
-import { FadeIn, StaggerContainer, StaggerItem } from './animations/MotionComponents';
 
 interface Program {
   id: string;
@@ -78,30 +76,29 @@ const ProgramsSection = () => {
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
 
   return (
-    <section id="programs" className="py-20 px-4 overflow-hidden">
+    <section id="programs" className="py-20 px-4">
       <div className="container mx-auto">
-        <FadeIn className="text-center mb-12">
+        <div className="text-center mb-12">
           <h2 className="section-title">Our Programs</h2>
           <p className="section-subtitle mx-auto mt-4">
             Comprehensive initiatives creating lasting change in our communities
           </p>
-        </FadeIn>
+        </div>
 
-        <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" staggerDelay={0.15}>
-          {programs.map((program) => (
-            <StaggerItem key={program.id}>
-              <motion.div
-                whileHover={{ y: -8 }}
-                transition={{ duration: 0.3 }}
-              >
-                <ProgramCard
-                  {...program}
-                  onClick={() => setSelectedProgram(program)}
-                />
-              </motion.div>
-            </StaggerItem>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {programs.map((program, index) => (
+            <div 
+              key={program.id}
+              className="animate-fade-in"
+              style={{ animationDelay: `${0.1 * index}s` }}
+            >
+              <ProgramCard
+                {...program}
+                onClick={() => setSelectedProgram(program)}
+              />
+            </div>
           ))}
-        </StaggerContainer>
+        </div>
 
         <ProgramModal
           isOpen={!!selectedProgram}
