@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import ProgramCard from './ProgramCard';
 import ProgramModal from './ProgramModal';
 
@@ -72,33 +73,64 @@ const programs: Program[] = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring" as const,
+      stiffness: 100,
+      damping: 15,
+    },
+  },
+};
+
 const ProgramsSection = () => {
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
 
   return (
     <section id="programs" className="py-20 px-4">
       <div className="container mx-auto">
-        <div className="text-center mb-12">
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="section-title">Our Programs</h2>
           <p className="section-subtitle mx-auto mt-4">
             Comprehensive initiatives creating lasting change in our communities
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {programs.map((program, index) => (
-            <div 
-              key={program.id}
-              className="animate-fade-in"
-              style={{ animationDelay: `${0.1 * index}s` }}
-            >
+        <motion.div 
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          {programs.map((program) => (
+            <motion.div key={program.id} variants={itemVariants}>
               <ProgramCard
                 {...program}
                 onClick={() => setSelectedProgram(program)}
               />
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         <ProgramModal
           isOpen={!!selectedProgram}

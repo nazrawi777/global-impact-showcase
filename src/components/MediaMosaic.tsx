@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import FilterChips from './FilterChips';
 import MediaCard from './MediaCard';
 import Lightbox from './Lightbox';
@@ -171,18 +172,23 @@ const MediaMosaic = () => {
   };
 
   return (
-    <section id="mosaic" className="pt-24 pb-16 px-4">
+    <section id="mosaic" className="pt-12 pb-16 px-4">
       <div className="container mx-auto">
         {/* Section header */}
-        <div className="text-center mb-12 animate-fade-in">
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           <h1 className="section-title">Building Communities, Changing Lives</h1>
           <p className="section-subtitle mx-auto mt-4">
             Witness the impact of our social welfare initiatives through the stories and moments we've captured.
           </p>
-        </div>
+        </motion.div>
 
         {/* Filter chips */}
-        <div className="mb-10 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+        <div className="mb-10">
           <FilterChips
             filters={filters}
             activeFilter={activeFilter}
@@ -190,21 +196,45 @@ const MediaMosaic = () => {
           />
         </div>
 
-        {/* Masonry grid */}
-        <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
-          {filteredItems.map((item, index) => (
-            <div 
-              key={item.id} 
-              className="break-inside-avoid animate-fade-in"
-              style={{ animationDelay: `${0.1 * (index % 8)}s` }}
-            >
-              <MediaCard
-                {...item}
-                onClick={() => openLightbox(index)}
-              />
-            </div>
-          ))}
-        </div>
+        {/* Masonry grid with layout animations */}
+        <LayoutGroup>
+          <motion.div 
+            className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4"
+            layout
+          >
+            <AnimatePresence mode="popLayout">
+              {filteredItems.map((item, index) => (
+                <motion.div 
+                  key={item.id} 
+                  layout
+                  initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                  animate={{ 
+                    opacity: 1, 
+                    scale: 1, 
+                    y: 0,
+                    transition: {
+                      delay: index * 0.03,
+                      type: "spring",
+                      stiffness: 200,
+                      damping: 20
+                    }
+                  }}
+                  exit={{ 
+                    opacity: 0, 
+                    scale: 0.8,
+                    transition: { duration: 0.2 }
+                  }}
+                  className="break-inside-avoid"
+                >
+                  <MediaCard
+                    {...item}
+                    onClick={() => openLightbox(index)}
+                  />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        </LayoutGroup>
 
         {/* Lightbox */}
         <Lightbox

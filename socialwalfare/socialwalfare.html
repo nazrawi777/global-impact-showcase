@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Welfare | Global General Construction Company</title>
+  <meta name="description" content="Discover the social welfare initiatives of Global General Construction Company - building homes, supporting education, and developing youth through sports.">
+  <meta property="og:title" content="Social Welfare | Global General Construction Company">
+  <meta property="og:description" content="Building Communities, Changing Lives through comprehensive social welfare programs.">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="socialwalfare.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main>
+    <!-- Media Mosaic Section -->
+    <section id="mosaic" class="section-mosaic">
+      <div class="container">
+        <div class="section-header animate-fade-in">
+          <h1 class="section-title">Building Communities, Changing Lives</h1>
+          <p class="section-subtitle">Witness the impact of our social welfare initiatives through the stories and moments we've captured.</p>
+        </div>
+        <div class="filter-chips" id="filterChips">
+          <button class="filter-chip active" data-filter="All">All</button>
+          <button class="filter-chip" data-filter="Philanthropy">Philanthropy</button>
+          <button class="filter-chip" data-filter="Housing">Housing</button>
+          <button class="filter-chip" data-filter="Education">Education</button>
+          <button class="filter-chip" data-filter="Football Club">Football Club</button>
+          <button class="filter-chip" data-filter="Events">Events</button>
+        </div>
+        <div class="mosaic-grid" id="mosaicGrid"></div>
+      </div>
+    </section>
+
+    <!-- Featured Stories Carousel -->
+    <section class="section-carousel">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Featured Stories</h2>
+          <p class="section-subtitle">Real stories of impact from our community programs</p>
+        </div>
+        <div class="carousel-container" id="carousel">
+          <div class="carousel-track" id="carouselTrack"></div>
+          <button class="carousel-btn prev" id="carouselPrev" aria-label="Previous">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="carousel-btn next" id="carouselNext" aria-label="Next">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+          <div class="carousel-dots" id="carouselDots"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="section-programs">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Our Programs</h2>
+          <p class="section-subtitle">Comprehensive initiatives creating lasting change in our communities</p>
+        </div>
+        <div class="programs-grid" id="programsGrid"></div>
+      </div>
+    </section>
+
+    <!-- Impact Counters -->
+    <section class="section-impact">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Our Impact in Numbers</h2>
+          <p class="section-subtitle">Measurable results from years of dedicated community service</p>
+        </div>
+        <div class="counters-grid" id="countersGrid"></div>
+      </div>
+    </section>
+
+    <!-- Football Club Section -->
+    <section id="club" class="section-club">
+      <div class="container">
+        <div class="section-header">
+          <div class="badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> GGCC Football Club</div>
+          <h2 class="section-title">Developing Champions On & Off the Field</h2>
+          <p class="section-subtitle">Our youth football program combines professional training with character development</p>
+        </div>
+        <div class="club-stats" id="clubStats"></div>
+        <div class="club-cta">
+          <a href="/contact" class="cta-button">Support the Club <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission Strip -->
+    <section id="about" class="section-mission">
+      <div class="container container-sm">
+        <div class="section-header">
+          <div class="badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Our Mission</div>
+          <h2 class="section-title">Building More Than Structures</h2>
+        </div>
+        <div class="mission-card">
+          <p>At Global General Construction Company, we believe our responsibility extends beyond building structures. Through our comprehensive social welfare programs, we're <span class="highlight">investing in communities</span>, <span class="highlight">nurturing talent</span>, and <span class="highlight">creating pathways to opportunity</span> for those who need it most.</p>
+        </div>
+        <div class="mission-pillars" id="missionPillars"></div>
+      </div>
+    </section>
+
+    <!-- CTA Row -->
+    <section class="section-cta">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Get Involved</h2>
+          <p class="section-subtitle">Join us in making a difference in our communities</p>
+        </div>
+        <div class="cta-grid" id="ctaGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Previous">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="lightbox-nav next" id="lightboxNext" aria-label="Next">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <div class="lightbox-content" id="lightboxContent"></div>
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+
+  <!-- Program Modal -->
+  <div class="modal" id="programModal" aria-hidden="true">
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+
+  <script src="socialwalfare.js"></script>
+</body>
+</html>
