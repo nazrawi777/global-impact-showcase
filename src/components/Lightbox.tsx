@@ -65,10 +65,13 @@ const Lightbox = ({ isOpen, currentItem, items, onClose, onNext, onPrev }: Light
       aria-modal="true"
       aria-label="Media lightbox"
     >
-      {/* Close button */}
+      {/* Close button - highest z-index and outside content area */}
       <button
-        className="absolute top-4 right-4 p-3 rounded-full bg-secondary/80 hover:bg-secondary text-foreground transition-colors z-10"
-        onClick={onClose}
+        className="absolute top-4 right-4 p-3 rounded-full bg-secondary/80 hover:bg-secondary text-foreground transition-colors z-[60]"
+        onClick={(e) => {
+          e.stopPropagation();
+          onClose();
+        }}
         aria-label="Close lightbox"
       >
         <X className="w-6 h-6" />
@@ -76,7 +79,7 @@ const Lightbox = ({ isOpen, currentItem, items, onClose, onNext, onPrev }: Light
 
       {/* Navigation buttons */}
       <button
-        className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-secondary/80 hover:bg-secondary text-foreground transition-colors z-10 disabled:opacity-50"
+        className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-secondary/80 hover:bg-secondary text-foreground transition-colors z-[60] disabled:opacity-50 disabled:cursor-not-allowed"
         onClick={(e) => {
           e.stopPropagation();
           onPrev();
@@ -88,7 +91,7 @@ const Lightbox = ({ isOpen, currentItem, items, onClose, onNext, onPrev }: Light
       </button>
 
       <button
-        className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-secondary/80 hover:bg-secondary text-foreground transition-colors z-10 disabled:opacity-50"
+        className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-secondary/80 hover:bg-secondary text-foreground transition-colors z-[60] disabled:opacity-50 disabled:cursor-not-allowed"
         onClick={(e) => {
           e.stopPropagation();
           onNext();
@@ -101,7 +104,7 @@ const Lightbox = ({ isOpen, currentItem, items, onClose, onNext, onPrev }: Light
 
       {/* Content */}
       <div 
-        className="max-w-5xl max-h-[85vh] mx-4 animate-scale-in"
+        className="max-w-5xl max-h-[85vh] mx-4 animate-scale-in relative z-10"
         onClick={(e) => e.stopPropagation()}
       >
         {currentItem.type === 'video' ? (

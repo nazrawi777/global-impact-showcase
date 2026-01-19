@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Welfare | Global General Construction Company</title>
+  <meta name="description" content="Discover the community impact of Global General Construction Company through our social welfare programs including affordable housing, education scholarships, and youth sports development.">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Social Welfare | Global General Construction Company">
+  <meta property="og:description" content="Building communities and changing lives through sustainable social welfare programs.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/img/og-image.jpg">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Social Welfare | Global General Construction Company">
+  <meta name="twitter:description" content="Building communities and changing lives through sustainable social welfare programs.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Top Navigation -->
+  <nav id="top-nav" class="top-nav">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <div class="logo-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 21h18"></path>
+            <path d="M5 21V7l8-4v18"></path>
+            <path d="M19 21V11l-6-4"></path>
+            <path d="M9 9v.01"></path>
+            <path d="M9 12v.01"></path>
+            <path d="M9 15v.01"></path>
+            <path d="M9 18v.01"></path>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">Global General</span>
+          <span class="logo-subtitle">Construction Company</span>
+        </div>
+      </a>
+      
+      <div class="nav-links" id="nav-links">
+        <a href="#mosaic" class="nav-link">Impact</a>
+        <a href="#programs" class="nav-link">Programs</a>
+        <a href="#club" class="nav-link">Football Club</a>
+        <a href="#gallery" class="nav-link">Gallery</a>
+        <a href="#about" class="nav-link">About</a>
+      </div>
+      
+      <a href="/contact" class="cta-button nav-cta">Contact Us</a>
+      
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
+        <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        </svg>
+        <svg class="close-icon hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu hidden" id="mobile-menu">
+      <a href="#mosaic" class="mobile-nav-link">Impact</a>
+      <a href="#programs" class="mobile-nav-link">Programs</a>
+      <a href="#club" class="mobile-nav-link">Football Club</a>
+      <a href="#gallery" class="mobile-nav-link">Gallery</a>
+      <a href="#about" class="mobile-nav-link">About</a>
+      <a href="/contact" class="cta-button mobile-cta">Contact Us</a>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Media Mosaic Section -->
+    <section id="mosaic" class="section mosaic-section">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h1 class="section-title">Building Communities, Changing Lives</h1>
+          <p class="section-subtitle">Witness the impact of our social welfare initiatives through the stories and moments we've captured.</p>
+        </div>
+        
+        <!-- Filter Chips -->
+        <div class="filter-chips fade-in">
+          <button class="filter-chip active" data-filter="all">All</button>
+          <button class="filter-chip" data-filter="philanthropy">Philanthropy</button>
+          <button class="filter-chip" data-filter="housing">Housing</button>
+          <button class="filter-chip" data-filter="education">Education</button>
+          <button class="filter-chip" data-filter="football-club">Football Club</button>
+          <button class="filter-chip" data-filter="events">Events</button>
+        </div>
+        
+        <!-- Masonry Grid -->
+        <div class="masonry-grid" id="mosaic-grid">
+          <!-- Items will be populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Carousel Section -->
+    <section class="section carousel-section">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2 class="section-title">Stories of Impact</h2>
+          <p class="section-subtitle">Real stories from the communities we serve</p>
+        </div>
+        
+        <div class="carousel-wrapper">
+          <div class="carousel" id="featured-carousel">
+            <!-- Carousel slides will be populated by JS -->
+          </div>
+          
+          <button class="carousel-btn carousel-prev" id="carousel-prev" aria-label="Previous story">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m15 18-6-6 6-6"></path>
+            </svg>
+          </button>
+          
+          <button class="carousel-btn carousel-next" id="carousel-next" aria-label="Next story">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg>
+          </button>
+          
+          <div class="carousel-dots" id="carousel-dots">
+            <!-- Dots will be populated by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="section programs-section">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2 class="section-title">Our Programs</h2>
+          <p class="section-subtitle">Comprehensive initiatives creating lasting change in our communities</p>
+        </div>
+        
+        <div class="programs-grid" id="programs-grid">
+          <!-- Program cards will be populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Impact Counters Section -->
+    <section class="section counters-section">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2 class="section-title">Our Impact in Numbers</h2>
+          <p class="section-subtitle">Measurable results from years of dedicated community service</p>
+        </div>
+        
+        <div class="counters-grid">
+          <div class="counter-card fade-in">
+            <div class="counter-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 10a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <path d="M7 8V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"></path>
+                <path d="M12 12v6"></path>
+                <path d="m15 15-3 3-3-3"></path>
+              </svg>
+            </div>
+            <div class="counter-value" data-target="500">0</div>
+            <div class="counter-suffix">+</div>
+            <div class="counter-label">Homes Built</div>
+          </div>
+          
+          <div class="counter-card fade-in">
+            <div class="counter-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+              </svg>
+            </div>
+            <div class="counter-value" data-target="1200">0</div>
+            <div class="counter-suffix">+</div>
+            <div class="counter-label">Students Supported</div>
+          </div>
+          
+          <div class="counter-card fade-in">
+            <div class="counter-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <div class="counter-value" data-target="10000">0</div>
+            <div class="counter-suffix">+</div>
+            <div class="counter-label">Families Served</div>
+          </div>
+          
+          <div class="counter-card fade-in">
+            <div class="counter-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <div class="counter-value" data-target="50000">0</div>
+            <div class="counter-suffix">+</div>
+            <div class="counter-label">Volunteer Hours</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Football Club Section -->
+    <section id="club" class="section club-section">
+      <div class="container">
+        <div class="section-header fade-in">
+          <span class="badge">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+              <path d="M4 22h16"></path>
+              <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+              <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+            </svg>
+            Global FC Youth Club
+          </span>
+          <h2 class="section-title">Building Champions On & Off the Field</h2>
+          <p class="section-subtitle">Our football program uses sport to teach discipline, teamwork, and leadership while providing opportunities for talented youth.</p>
+        </div>
+        
+        <!-- Club Stats -->
+        <div class="club-stats">
+          <div class="club-stat">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            <span class="stat-value">800+</span>
+            <span class="stat-label">Young Athletes</span>
+          </div>
+          <div class="club-stat">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+              <path d="M4 22h16"></path>
+              <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+              <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+            </svg>
+            <span class="stat-value">15</span>
+            <span class="stat-label">Championships</span>
+          </div>
+          <div class="club-stat">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+            </svg>
+            <span class="stat-value">24</span>
+            <span class="stat-label">Partner Teams</span>
+          </div>
+        </div>
+        
+        <!-- Club Media Grid -->
+        <div class="club-media-grid" id="club-media-grid">
+          <!-- Club media will be populated by JS -->
+        </div>
+        
+        <!-- Team Roster -->
+        <div class="roster-section fade-in">
+          <h3 class="roster-title">Team Leadership</h3>
+          <div class="roster-grid" id="roster-grid">
+            <!-- Roster will be populated by JS -->
+          </div>
+        </div>
+        
+        <div class="text-center fade-in">
+          <a href="/contact" class="cta-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+            </svg>
+            Support the Club
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Media Gallery Section -->
+    <section id="gallery" class="section gallery-section">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2 class="section-title">Media Gallery</h2>
+          <p class="section-subtitle">Explore our complete collection of photos and videos documenting our community impact</p>
+        </div>
+        
+        <!-- Gallery Filter Chips -->
+        <div class="filter-chips fade-in">
+          <button class="filter-chip active" data-gallery-filter="all">All</button>
+          <button class="filter-chip" data-gallery-filter="philanthropy">Philanthropy</button>
+          <button class="filter-chip" data-gallery-filter="housing">Housing</button>
+          <button class="filter-chip" data-gallery-filter="education">Education</button>
+          <button class="filter-chip" data-gallery-filter="football-club">Football Club</button>
+          <button class="filter-chip" data-gallery-filter="events">Events</button>
+        </div>
+        
+        <!-- Gallery Grid -->
+        <div class="gallery-grid" id="gallery-grid">
+          <!-- Gallery items will be populated by JS -->
+        </div>
+        
+        <div class="text-center fade-in">
+          <button class="cta-button-outline" id="load-more-gallery">Load More Media</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission Strip Section -->
+    <section id="about" class="section mission-section">
+      <div class="container mission-container">
+        <div class="section-header fade-in">
+          <span class="badge">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="6"></circle>
+              <circle cx="12" cy="12" r="2"></circle>
+            </svg>
+            Our Mission
+          </span>
+          <h2 class="section-title">Building More Than Structures</h2>
+        </div>
+        
+        <div class="mission-card fade-in">
+          <p class="mission-text">
+            At Global General Construction Company, we believe our responsibility extends beyond 
+            building structures. Through our comprehensive social welfare programs, we're 
+            <span class="text-primary">investing in communities</span>, 
+            <span class="text-primary">nurturing talent</span>, and 
+            <span class="text-primary">creating pathways to opportunity</span> for 
+            those who need it most.
+          </p>
+        </div>
+        
+        <div class="pillars-grid">
+          <div class="pillar-card fade-in">
+            <div class="pillar-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 21h18"></path>
+                <path d="M5 21V7l8-4v18"></path>
+                <path d="M19 21V11l-6-4"></path>
+              </svg>
+            </div>
+            <h3 class="pillar-title">Sustainable Impact</h3>
+            <p class="pillar-description">Every project is designed for lasting community benefit, not just immediate results.</p>
+          </div>
+          
+          <div class="pillar-card fade-in">
+            <div class="pillar-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+              </svg>
+            </div>
+            <h3 class="pillar-title">People First</h3>
+            <p class="pillar-description">We measure success by lives changed, families supported, and futures built.</p>
+          </div>
+          
+          <div class="pillar-card fade-in">
+            <div class="pillar-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <h3 class="pillar-title">Together We Build</h3>
+            <p class="pillar-description">Our volunteers, partners, and communities work hand-in-hand to create change.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Row Section -->
+    <section class="section cta-section">
+      <div class="container">
+        <div class="section-header fade-in">
+          <h2 class="section-title">Join Our Movement</h2>
+          <p class="section-subtitle">There are many ways to make a difference. Choose how you'd like to get involved.</p>
+        </div>
+        
+        <div class="cta-grid">
+          <a href="/contact" class="cta-card fade-in">
+            <div class="cta-card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <h3 class="cta-card-title">Volunteer</h3>
+            <p class="cta-card-description">Join our team and make a hands-on difference in your community.</p>
+            <span class="cta-card-link">Get Started <span class="arrow">→</span></span>
+          </a>
+          
+          <a href="/contact" class="cta-card cta-card-primary fade-in">
+            <div class="cta-card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+              </svg>
+            </div>
+            <h3 class="cta-card-title">Donate</h3>
+            <p class="cta-card-description">Your contribution directly funds housing, education, and youth programs.</p>
+            <span class="cta-card-link">Get Started <span class="arrow">→</span></span>
+          </a>
+          
+          <a href="/contact" class="cta-card fade-in">
+            <div class="cta-card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 17a4 4 0 0 1-4-4V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2a6 6 0 0 0 6 6h0"></path>
+                <path d="M13 21h8"></path>
+                <path d="M17 17v4"></path>
+                <path d="M7 21a4 4 0 0 1-4-4V9a2 2 0 0 1 2-2h2"></path>
+              </svg>
+            </div>
+            <h3 class="cta-card-title">Partner</h3>
+            <p class="cta-card-description">Collaborate with us on CSR initiatives and community projects.</p>
+            <span class="cta-card-link">Get Started <span class="arrow">→</span></span>
+          </a>
+          
+          <a href="/contact" class="cta-card fade-in">
+            <div class="cta-card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                <path d="M4 22h16"></path>
+                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+              </svg>
+            </div>
+            <h3 class="cta-card-title">Support Club</h3>
+            <p class="cta-card-description">Help us develop the next generation of athletes and leaders.</p>
+            <span class="cta-card-link">Get Started <span class="arrow">→</span></span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox hidden" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close lightbox">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 6 6 18"></path>
+        <path d="m6 6 12 12"></path>
+      </svg>
+    </button>
+    
+    <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m15 18-6-6 6-6"></path>
+      </svg>
+    </button>
+    
+    <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m9 18 6-6-6-6"></path>
+      </svg>
+    </button>
+    
+    <div class="lightbox-content">
+      <img id="lightbox-image" src="" alt="" class="lightbox-media">
+      <video id="lightbox-video" class="lightbox-media hidden" controls>
+        <track kind="captions" src="" label="English">
+      </video>
+      
+      <div class="lightbox-caption">
+        <div class="lightbox-info">
+          <h3 id="lightbox-title" class="lightbox-title"></h3>
+          <p id="lightbox-description" class="lightbox-description"></p>
+        </div>
+        <span id="lightbox-counter" class="lightbox-counter"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Program Modal -->
+  <div class="modal hidden" id="program-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <button class="modal-close" id="modal-close" aria-label="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+      
+      <div class="modal-header">
+        <img id="modal-image" src="" alt="" class="modal-image">
+        <div class="modal-header-overlay"></div>
+        <div class="modal-header-content">
+          <span id="modal-stat" class="modal-stat"></span>
+          <h2 id="modal-title" class="modal-title"></h2>
+        </div>
+      </div>
+      
+      <div class="modal-body">
+        <p id="modal-description" class="modal-description"></p>
+        
+        <h3 class="modal-gallery-title">Program Gallery</h3>
+        <div id="modal-gallery" class="modal-gallery"></div>
+        
+        <div class="modal-actions">
+          <a href="/contact" class="cta-button">
+            Get Involved
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
+          <a href="/contact" class="cta-button-outline">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

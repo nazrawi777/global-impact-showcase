@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import ProgramCard from './ProgramCard';
 import ProgramModal from './ProgramModal';
+import { FadeIn, StaggerContainer, StaggerItem } from './animations/MotionComponents';
 
 interface Program {
   id: string;
@@ -73,64 +74,34 @@ const programs: Program[] = [
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring" as const,
-      stiffness: 100,
-      damping: 15,
-    },
-  },
-};
-
 const ProgramsSection = () => {
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
 
   return (
-    <section id="programs" className="py-20 px-4">
+    <section id="programs" className="py-20 px-4 overflow-hidden">
       <div className="container mx-auto">
-        <motion.div 
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <FadeIn className="text-center mb-12">
           <h2 className="section-title">Our Programs</h2>
           <p className="section-subtitle mx-auto mt-4">
             Comprehensive initiatives creating lasting change in our communities
           </p>
-        </motion.div>
+        </FadeIn>
 
-        <motion.div 
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-        >
+        <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" staggerDelay={0.15}>
           {programs.map((program) => (
-            <motion.div key={program.id} variants={itemVariants}>
-              <ProgramCard
-                {...program}
-                onClick={() => setSelectedProgram(program)}
-              />
-            </motion.div>
+            <StaggerItem key={program.id}>
+              <motion.div
+                whileHover={{ y: -8 }}
+                transition={{ duration: 0.3 }}
+              >
+                <ProgramCard
+                  {...program}
+                  onClick={() => setSelectedProgram(program)}
+                />
+              </motion.div>
+            </StaggerItem>
           ))}
-        </motion.div>
+        </StaggerContainer>
 
         <ProgramModal
           isOpen={!!selectedProgram}

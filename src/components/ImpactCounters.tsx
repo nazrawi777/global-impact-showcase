@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, useSpring, useInView } from 'framer-motion';
+import { motion, useInView, useSpring, useTransform } from 'framer-motion';
 import { Home, GraduationCap, Users, Clock } from 'lucide-react';
+import { FadeIn } from './animations/MotionComponents';
 
 interface Counter {
   icon: React.ReactNode;
@@ -36,77 +37,55 @@ const counters: Counter[] = [
   },
 ];
 
-const SpringCounter = ({ value, suffix }: { value: number; suffix: string }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [displayValue, setDisplayValue] = useState(0);
+const AnimatedCounter = ({ counter, index }: { counter: Counter; index: number }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
   
+  const prefersReducedMotion = typeof window !== 'undefined' 
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
+    : false;
+
   const springValue = useSpring(0, {
     stiffness: 50,
-    damping: 20,
-    mass: 1
+    damping: 30,
+    duration: prefersReducedMotion ? 0 : undefined,
+  });
+
+  const displayValue = useTransform(springValue, (latest) => {
+    if (latest >= 1000) {
+      return (latest / 1000).toFixed(latest >= 10000 ? 0 : 1) + 'K';
+    }
+    return Math.floor(latest).toString();
   });
 
   useEffect(() => {
     if (isInView) {
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (prefersReducedMotion) {
-        setDisplayValue(value);
-        return;
-      }
-      springValue.set(value);
+      springValue.set(counter.value);
     }
-  }, [isInView, value, springValue]);
+  }, [isInView, counter.value, springValue]);
 
-  useEffect(() => {
-    const unsubscribe = springValue.on("change", (latest) => {
-      setDisplayValue(Math.floor(latest));
-    });
-    return unsubscribe;
-  }, [springValue]);
-
-  const formatNumber = (num: number) => {
-    if (num >= 1000) {
-      return (num / 1000).toFixed(num >= 10000 ? 0 : 1) + 'K';
-    }
-    return num.toString();
-  };
-
-  return (
-    <div ref={ref} className="counter-value mb-2">
-      {formatNumber(displayValue)}{suffix}
-    </div>
-  );
-};
-
-const CounterItem = ({ counter, index }: { counter: Counter; index: number }) => {
   return (
     <motion.div 
-      className="text-center p-6 rounded-xl bg-card hover:bg-secondary/50 transition-colors duration-300 group"
-      initial={{ opacity: 0, y: 30, scale: 0.9 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ 
-        delay: index * 0.1,
-        type: "spring",
-        stiffness: 100,
-        damping: 15
-      }}
-      whileHover={{ 
-        y: -8, 
-        scale: 1.02,
-        boxShadow: "0 20px 40px hsl(38 92% 50% / 0.15)"
-      }}
+      ref={ref}
+      className="text-center p-6 rounded-xl bg-card hover:bg-secondary/50 transition-colors duration-300"
+      initial={{ opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay: index * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+      whileHover={{ scale: 1.02, y: -5 }}
       aria-live="polite"
     >
       <motion.div 
         className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary mb-4"
-        whileHover={{ scale: 1.1, rotate: 5 }}
-        transition={{ type: "spring", stiffness: 300 }}
+        initial={{ scale: 0, rotate: -180 }}
+        animate={isInView ? { scale: 1, rotate: 0 } : {}}
+        transition={{ duration: 0.5, delay: index * 0.1 + 0.2, type: 'spring' }}
       >
         {counter.icon}
       </motion.div>
-      <SpringCounter value={counter.value} suffix={counter.suffix} />
+      <div className="counter-value mb-2 flex items-center justify-center">
+        <motion.span>{displayValue}</motion.span>
+        <span>{counter.suffix}</span>
+      </div>
       <div className="text-muted-foreground font-medium">
         {counter.label}
       </div>
@@ -115,25 +94,21 @@ const CounterItem = ({ counter, index }: { counter: Counter; index: number }) =>
 };
 
 const ImpactCounters = () => {
+  const sectionRef = useRef(null);
+
   return (
-    <section className="py-20 px-4 bg-gradient-to-b from-background to-card/30">
+    <section className="py-20 px-4 bg-gradient-to-b from-background to-card/30 overflow-hidden" ref={sectionRef}>
       <div className="container mx-auto">
-        <motion.div 
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <FadeIn className="text-center mb-12">
           <h2 className="section-title">Our Impact in Numbers</h2>
           <p className="section-subtitle mx-auto mt-4">
             Measurable results from years of dedicated community service
           </p>
-        </motion.div>
+        </FadeIn>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {counters.map((counter, index) => (
-            <CounterItem key={counter.label} counter={counter} index={index} />
+            <AnimatedCounter key={counter.label} counter={counter} index={index} />
           ))}
         </div>
       </div>
