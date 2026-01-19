@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { motion, useSpring, useInView } from 'framer-motion';
 import { Home, GraduationCap, Users, Clock } from 'lucide-react';
 
 interface Counter {
@@ -35,60 +36,34 @@ const counters: Counter[] = [
   },
 ];
 
-const useCountAnimation = (end: number, duration: number = 2000) => {
-  const [count, setCount] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
+const SpringCounter = ({ value, suffix }: { value: number; suffix: string }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [displayValue, setDisplayValue] = useState(0);
+  
+  const springValue = useSpring(0, {
+    stiffness: 50,
+    damping: 20,
+    mass: 1
+  });
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    
-    if (prefersReducedMotion) {
-      setCount(end);
-      return;
-    }
-
-    let startTime: number | null = null;
-    const animate = (currentTime: number) => {
-      if (!startTime) startTime = currentTime;
-      const progress = Math.min((currentTime - startTime) / duration, 1);
-      
-      // Easing function for smooth animation
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      setCount(Math.floor(easeOutQuart * end));
-      
-      if (progress < 1) {
-        requestAnimationFrame(animate);
+    if (isInView) {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) {
+        setDisplayValue(value);
+        return;
       }
-    };
+      springValue.set(value);
+    }
+  }, [isInView, value, springValue]);
 
-    requestAnimationFrame(animate);
-  }, [isVisible, end, duration]);
-
-  return { count, ref };
-};
-
-const CounterItem = ({ counter }: { counter: Counter }) => {
-  const { count, ref } = useCountAnimation(counter.value);
+  useEffect(() => {
+    const unsubscribe = springValue.on("change", (latest) => {
+      setDisplayValue(Math.floor(latest));
+    });
+    return unsubscribe;
+  }, [springValue]);
 
   const formatNumber = (num: number) => {
     if (num >= 1000) {
@@ -98,21 +73,44 @@ const CounterItem = ({ counter }: { counter: Counter }) => {
   };
 
   return (
-    <div 
-      ref={ref}
-      className="text-center p-6 rounded-xl bg-card hover:bg-secondary/50 transition-colors duration-300"
+    <div ref={ref} className="counter-value mb-2">
+      {formatNumber(displayValue)}{suffix}
+    </div>
+  );
+};
+
+const CounterItem = ({ counter, index }: { counter: Counter; index: number }) => {
+  return (
+    <motion.div 
+      className="text-center p-6 rounded-xl bg-card hover:bg-secondary/50 transition-colors duration-300 group"
+      initial={{ opacity: 0, y: 30, scale: 0.9 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ 
+        delay: index * 0.1,
+        type: "spring",
+        stiffness: 100,
+        damping: 15
+      }}
+      whileHover={{ 
+        y: -8, 
+        scale: 1.02,
+        boxShadow: "0 20px 40px hsl(38 92% 50% / 0.15)"
+      }}
       aria-live="polite"
     >
-      <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary mb-4">
+      <motion.div 
+        className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary mb-4"
+        whileHover={{ scale: 1.1, rotate: 5 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      >
         {counter.icon}
-      </div>
-      <div className="counter-value mb-2">
-        {formatNumber(count)}{counter.suffix}
-      </div>
+      </motion.div>
+      <SpringCounter value={counter.value} suffix={counter.suffix} />
       <div className="text-muted-foreground font-medium">
         {counter.label}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -120,22 +118,22 @@ const ImpactCounters = () => {
   return (
     <section className="py-20 px-4 bg-gradient-to-b from-background to-card/30">
       <div className="container mx-auto">
-        <div className="text-center mb-12">
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="section-title">Our Impact in Numbers</h2>
           <p className="section-subtitle mx-auto mt-4">
             Measurable results from years of dedicated community service
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {counters.map((counter, index) => (
-            <div
-              key={counter.label}
-              className="animate-fade-in"
-              style={{ animationDelay: `${0.1 * index}s` }}
-            >
-              <CounterItem counter={counter} />
-            </div>
+            <CounterItem key={counter.label} counter={counter} index={index} />
           ))}
         </div>
       </div>

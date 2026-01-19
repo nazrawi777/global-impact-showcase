@@ -1,10 +1,8 @@
-import TopNav from '@/components/TopNav';
 import MediaMosaic from '@/components/MediaMosaic';
 import FeaturedCarousel from '@/components/FeaturedCarousel';
 import ProgramsSection from '@/components/ProgramsSection';
 import ImpactCounters from '@/components/ImpactCounters';
 import ClubMedia from '@/components/ClubMedia';
-import MediaGallery from '@/components/MediaGallery';
 import MissionStrip from '@/components/MissionStrip';
 import CTARow from '@/components/CTARow';
 
@@ -13,9 +11,6 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* SEO Meta - would be in document head in production */}
       <title>Social Welfare | Global General Construction Company</title>
-      
-      {/* Navigation */}
-      <TopNav />
       
       {/* Main content - no hero, starts with media mosaic */}
       <main>
@@ -33,9 +28,6 @@ const Index = () => {
         
         {/* Football Club Section */}
         <ClubMedia />
-        
-        {/* Full Media Gallery */}
-        <MediaGallery />
         
         {/* Mission / About Strip */}
         <MissionStrip />
